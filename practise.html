@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practise</title>
+</head>
+<style>
+    /* CSS for table */
+table {
+  border-collapse: collapse;
+  border-radius: 5px;
+
+}
+
+/* CSS for table head */
+th {
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: lightblue;
+  padding: 10px;
+  text-align: center;
+}
+
+/* CSS for table data */
+td {
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: lightgray;
+  padding: 10px;
+  text-align: center;
+}
+
+
+#myTable{
+    display: flex;
+    justify-content: center;
+}
+h2{
+    text-align: center;
+}
+
+</style>
+<body>
+       <h2>Directory App</h2>
+<br>
+<br>
+    <div id="myTable">
+     
+        <table id="info" class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Dob</th>
+              <th>Mobile Number</th>
+              <th>Adhar Number</th>
+              <th>Age</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <!-- <td>Raj</td>
+              <td>05feb</td>
+              <td>8433828915</td>
+              <td>448911884637</td>
+              <td>23</td>
+              <td><button>Delete</button></td> -->
+            </tr>
+            <tr>
+                <!-- <td>jay</td>
+                <td>05feb</td>
+                <td>8433828915</td>
+                <td>448911884637</td>
+                <td>23</td>
+                <td><button>Delete</button></td>
+              </tr> -->
+          </tbody>
+        </table>
+        
+      </div>
+      <br>
+      <br>
+      <button onclick="addRow()">ADD</button>
+</body>
+<script>
+function createTextInput() {
+  let input = document.createElement('input');
+  input.type = 'text';
+  return input;
+}
+
+function deleteRow(button) {
+  var row = button.closest('tr');
+  if (row && row.rowIndex !== 0) {
+    row.parentNode.removeChild(row);
+  }
+}
+
+
+function saveRow(row) {
+  var name = row.cells[0].querySelector('input').value;
+  var dob = row.cells[1].querySelector('input').value;
+  var phone = row.cells[2].querySelector('input').value;
+  var adhar = row.cells[3].querySelector('input').value;
+  var age = row.cells[4].querySelector('input').value;
+
+  var obj = {
+    name: name,
+    dob: dob,
+    phone: phone,
+    adhar: adhar,
+    age: age
+  };
+
+  localStorage.setItem('myData', JSON.stringify(obj));
+  console.log(obj)
+}
+
+
+
+
+function addRow() {
+  let table = document.getElementById('info');
+  let row = table.insertRow();
+
+  let nameCell = row.insertCell(0);
+  let nameInput = createTextInput('name');
+  nameCell.appendChild(nameInput);
+
+  let dobCell = row.insertCell(1);
+  let dobInput = createTextInput('dob');
+  dobCell.appendChild(dobInput);
+
+  let phoneCell = row.insertCell(2);
+  let phoneInput = createTextInput('phone');
+  phoneCell.appendChild(phoneInput);
+
+  let adharCell = row.insertCell(3);
+  let adharInput = createTextInput('adhar');
+  adharCell.appendChild(adharInput);
+
+  let ageCell = row.insertCell(4);
+  let ageInput = createTextInput('age');
+  ageCell.appendChild(ageInput);
+
+  let actionCell = row.insertCell(5);
+
+  let deleteButton = document.createElement('button');
+  deleteButton.innerHTML = 'Delete';
+  deleteButton.onclick = function() {
+    deleteRow(row);
+  };
+  actionCell.appendChild(deleteButton);
+
+  let saveButton = document.createElement('button');
+  saveButton.innerHTML = 'Save';
+  saveButton.onclick = function() {
+    saveRow(row);
+  };
+  actionCell.appendChild(saveButton);
+}
+
+
+
+</script>
+</html>
